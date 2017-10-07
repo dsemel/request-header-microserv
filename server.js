@@ -11,7 +11,12 @@ app.get("/", function(request, response) {
   
   var agent = useragent.parse(request.headers['user-agent']);
   
-  response.send({"software":agent.os.toString()});
+  //var ip = request.ip;
+  
+  var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+  ip = ip.substr(0,15);
+  
+  response.send({"software":agent.os.toString(), "ip": ip,});
   
 })
 
