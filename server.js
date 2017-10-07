@@ -14,9 +14,12 @@ app.get("/", function(request, response) {
   //var ip = request.ip;
   
   var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
-  ip = ip.substr(0,15);
+  ip = ip.substr(0,14);
   
-  response.send({"software":agent.os.toString(), "ip": ip,});
+  var language = request.headers["accept-language"];
+  language = language.substr(0,5);
+  
+  response.send({"ip": ip, "language": language, "software":agent.os.toString(), });
   
 })
 
