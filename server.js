@@ -5,10 +5,13 @@
 var express = require('express');
 var app = express();
 
-var userargent = require('useragent');
+var useragent = require('useragent');
 
 app.get("/", function(request, response) {
   
+  var agent = useragent.parse(request.headers['user-agent']);
+  
+  response.send({"software":agent.os.toString()});
   
 })
 
